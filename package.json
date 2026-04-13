@@ -1,0 +1,27 @@
+{
+  "name": "bloger-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "cookies-next": "^6.1.1",
+    "i18next": "^25.8.6",
+    "maplibre-gl": "^5.19.0",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-i18next": "^16.5.4",
+    "react-phone-number-input": "^3.4.16",
+    "react-responsive": "^10.0.1",
+    "resend": "^6.9.4",
+    "styled-components": "^6.3.9",
+    "swiper": "^12.1.2"
+  },
+  "devDependencies": {
+    "babel-plugin-react-compiler": "1.0.0"
+  }
+}
