@@ -80,7 +80,7 @@ export const DivBook = styled.div`
   background-color: red;
   border-radius: 0.5rem;
   margin: 2rem;
-
+  overflow: hidden;
   height: 345px;
 
   @media screen and (max-width: 650px) {
