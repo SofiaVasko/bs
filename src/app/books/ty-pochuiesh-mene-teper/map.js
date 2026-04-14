@@ -15,7 +15,7 @@ const MaplibreExample = () => {
     mapRef.current = new maplibregl.Map({
       container: mapContainerRef.current,
       style:
-        "https://api.maptiler.com/maps/toner-v2/style.json?key=bdYvu1zavBzXHAZm1Jlx",
+        "https://api.maptiler.com/maps/toner-v2/style.json?key=snlUtHBO6GKK6wn6SsyR",
       center: [lng, lat],
       zoom: 15,
     });
