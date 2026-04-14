@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexContainer, h1Container } from "../containers/styledContainers";
+import { flexContainer, h1Container, hyphensContainer } from "../containers/styledContainers";
 import Image from "next/image";
 
 export const Section = styled.section`
@@ -63,6 +63,7 @@ export const P = styled.p`
   text-transform: none;
   text-align: justify;
   padding: 0rem 2rem 3rem;
+  ${hyphensContainer}
 
   @media screen and (max-width: 800px) {
     padding-top: 1rem;

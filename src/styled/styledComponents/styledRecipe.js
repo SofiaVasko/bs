@@ -3,6 +3,7 @@ import {
   flexContainer,
   h1Container,
   btnContainer,
+  hyphensContainer,
 } from "../containers/styledContainers";
 import Image from "next/image";
 import Link from "next/link";
@@ -97,7 +98,7 @@ export const P = styled.p`
   text-transform: none;
   text-align: justify;
   padding: 0rem 4rem;
-  line-height: 1.44;
+  ${hyphensContainer}
 
   @media screen and (max-width: 1100px) {
     padding: 0rem 1rem;

@@ -26,6 +26,10 @@ export default function Header() {
 
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
 
+useEffect(() => {
+document.documentElement.lang = language;
+}, [language])
+
   function handleMobileMenu() {
     setMobileMenu((prevState) => !prevState);
   }

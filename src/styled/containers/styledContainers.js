@@ -62,3 +62,8 @@ export const stopAnimationContainer = css`
     animation-play-state: paused;
   }
 `;
+
+export const hyphensContainer = css`
+  hyphens: auto;
+  text-indent: 1.2em;
+`
