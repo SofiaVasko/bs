@@ -23,11 +23,34 @@ export async function POST(request) {
     return NextResponse.json({ message: "Bad request" }, { status: 400 });
   }
 
-  if (!order || order.length === 0) {
+  if (!order || !Array.isArray(order)) {
     return NextResponse.json({ message: "Missing fields" }, { status: 400 });
   }
 
-  const orderHTML = order
+  const prices = {
+    recipeBook: 450,
+    hearBook: 400,
+    recipeEbook: 250,
+  };
+
+  const filteredOrder = order.filter((item) => {
+    return (
+      prices[item.id] &&
+      Number.isInteger(item.quantity) &&
+      item.quantity > 0 &&
+      item.quantity <= 20
+    );
+  });
+
+  if (filteredOrder.length === 0) {
+    return NextResponse.json({ message: "Bad request" }, { status: 400 });
+  }
+
+  const totalPriceFromBackend = filteredOrder.reduce((acc, item) => {
+    return acc + prices[item.id] * item.quantity;
+  }, 0);
+
+  const orderHTML = filteredOrder
     .map(
       (item) => `
   <li>${item.id === "recipeBook" ? "<strong>Рецепти львівської пані з берегів Босфору:</strong> друкована книга" : item.id === "recipeEbook" ? "<strong>Рецепти львівської пані з берегів Босфору:</strong> електронна книга" : "<strong>Ти почуєш мене тепер:</strong> друкована книга"} — ${item.quantity} шт.</li>
@@ -45,20 +68,10 @@ export async function POST(request) {
       .replace(/'/g, "&#39;");
   }
 
-  const emailHTML = `<h3>Замовлення</h3></br><h4>Повне ім'я: ${escapeHTML(firstName)} ${escapeHTML(lastName)}</h4></br><h4>Деталі замовлення:</h4><ul>${orderHTML}</ul></br><h4>Загальна сума: ${escapeHTML(totalPrice)} грн</h4></br><h4>Пошта покупця: ${escapeHTML(email)}</h4></br><h4>Телефон покупця: ${escapeHTML(tel)}</h4></br><h4>Обраний спосіб доставки: ${escapeHTML(delivery)}</h4></br> ${comment ? `<h4>Коментар покупця: ${escapeHTML(comment)}</h4></br>` : ""}`;
+  const emailHTML = `<h3>Замовлення</h3></br><h4>Повне ім'я: ${escapeHTML(firstName)} ${escapeHTML(lastName)}</h4></br><h4>Деталі замовлення:</h4><ul>${orderHTML}</ul></br><h4>Загальна сума: ${escapeHTML(totalPriceFromBackend)} грн</h4></br><h4>Пошта покупця: ${escapeHTML(email)}</h4></br><h4>Телефон покупця: ${escapeHTML(tel)}</h4></br><h4>Обраний спосіб доставки: ${escapeHTML(delivery)}</h4></br> ${comment ? `<h4>Коментар покупця: ${escapeHTML(comment)}</h4></br>` : ""}`;
 
   let response;
 
-  let orderIsNotValid = !order || typeof order !== "object";
-  let orderIdIsNotValid = !order.some(
-    (item) =>
-      item.id === "recipeBook" ||
-      item.id === "recipeEbook" ||
-      item.id === "hearBook",
-  );
-  let orderValueIsNotValid = !order.every((item) => item.id);
-  let orderSecondValueIsNotValid = !order.every((item) => item.quantity);
-  let totalPriceIsNotValid = !totalPrice || typeof totalPrice !== "number";
   let firstNameIsNotValid =
     !firstName || typeof firstName !== "string" || firstName.length < 3;
   let lastNameIsNotValid =
@@ -68,23 +81,16 @@ export async function POST(request) {
   let emailIsNotValid =
     !email || typeof email !== "string" || !emailRegexp.test(email);
   let telIsNotValid = !tel || typeof tel !== "string" || tel.length > 17;
-  let deliveryIsNotChosen = !(
+  let deliveryIsNotValid = !(
     delivery === "Ukrposhta" || delivery === "Nova Poshta"
   );
-  let deliveryIsNotValid = !delivery || typeof delivery !== "string";
   let confirmIsNotValid = !confirm || typeof confirm !== "boolean";
 
   if (
-    orderIsNotValid ||
-    orderIdIsNotValid ||
-    orderValueIsNotValid ||
-    orderSecondValueIsNotValid ||
-    totalPriceIsNotValid ||
     firstNameIsNotValid ||
     lastNameIsNotValid ||
     emailIsNotValid ||
     telIsNotValid ||
-    deliveryIsNotChosen ||
     deliveryIsNotValid ||
     confirmIsNotValid
   ) {
