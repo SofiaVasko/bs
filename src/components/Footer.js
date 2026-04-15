@@ -10,11 +10,12 @@ import {
 
 export default function Footer() {
   const { t, i18n } = useTranslation();
-
+  const getYear = new Date().getFullYear();
+  
   return (
     <StyledFooter>
       <Div className="wrapper">
-        <h3>&copy; 2026 {t("footer.h")}</h3>
+        <h3>&copy; {getYear} {t("footer.h")}</h3>
         <span>{t("footer.span")}</span>
         <DevContact
           href="https://sofiavasko.netlify.app/contacts"
