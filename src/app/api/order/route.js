@@ -68,7 +68,7 @@ export async function POST(request) {
       .replace(/'/g, "&#39;");
   }
 
-  const emailHTML = `<h3>Замовлення</h3></br><h4>Повне ім'я: ${escapeHTML(firstName)} ${escapeHTML(lastName)}</h4></br><h4>Деталі замовлення:</h4><ul>${orderHTML}</ul></br><h4>Загальна сума: ${escapeHTML(totalPriceFromBackend)} грн</h4></br><h4>Пошта покупця: ${escapeHTML(email)}</h4></br><h4>Телефон покупця: ${escapeHTML(tel)}</h4></br><h4>Обраний спосіб доставки: ${escapeHTML(delivery)}</h4></br> ${comment ? `<h4>Коментар покупця: ${escapeHTML(comment)}</h4></br>` : ""}`;
+  const emailHTML = `<h3>Замовлення</h3><h4>Повне ім'я: ${escapeHTML(firstName)} ${escapeHTML(lastName)}</h4><h4>Деталі замовлення:</h4><ul>${orderHTML}</ul><h4>Загальна сума: ${escapeHTML(totalPriceFromBackend)} грн</h4><h4>Пошта покупця: ${escapeHTML(email)}</h4><h4>Телефон покупця: ${escapeHTML(tel)}</h4><h4>Обраний спосіб доставки: ${escapeHTML(delivery)}</h4>${comment ? `<h4>Коментар покупця: ${escapeHTML(comment)}</h4>` : ""}`;
 
   let response;
 
