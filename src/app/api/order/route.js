@@ -23,7 +23,7 @@ export async function POST(request) {
     return NextResponse.json({ message: "Bad request" }, { status: 400 });
   }
 
-  if (!order || !Array.isArray(order)) {
+  if (!order || !Array.isArray(order) || order.length === 0) {
     return NextResponse.json({ message: "Missing fields" }, { status: 400 });
   }
 
@@ -42,7 +42,7 @@ export async function POST(request) {
     );
   });
 
-  if (filteredOrder.length === 0) {
+  if (filteredOrder.length !== order.length) {
     return NextResponse.json({ message: "Bad request" }, { status: 400 });
   }
 
