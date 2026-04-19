@@ -22,24 +22,41 @@ import {
   StyledLink,
 } from "@/styled/styledComponents/styledWishlist";
 
+import { Toast } from "@/styled/styledComponents/styledCheckout";
+
 import Link from "next/link";
 import { useShopContext } from "@/providers/ShopProvider";
 
 import { useTranslation } from "react-i18next";
 import { data } from "@/providers/ShopProvider";
+import { useState } from "react";
 
 export default function Wishlist() {
+  const [toast, setToast] = useState("");
+
   const [state, dispatch] = useShopContext();
   const [t, i18n] = useTranslation();
 
   const likesLength = state.likes.length;
+
+  const limitIsReached = state.cart.filter((i) => i.quantity === 20);
 
   function removeFromWishlist(item) {
     dispatch({ type: "REMOVE_FROM_WISHLIST", payload: item.id });
   }
 
   function addToCart(item) {
+    const itemIsExist = state.cart.find((i) => i.id === item.id);
+    if (itemIsExist && itemIsExist.quantity === 19) {
+      setToast(t("order.limit"));
+    } else if (itemIsExist && itemIsExist.quantity === 20) {
+      return;
+    }
     dispatch({ type: "ADD_TO_CART", payload: item.id });
+  }
+
+  function handleToast() {
+    setToast("");
   }
 
   const titleWishlist = (
@@ -110,7 +127,10 @@ export default function Wishlist() {
                       </svg>{" "}
                       {t("order.books.wishlist.no")}
                     </Btn>
-                    <Btn onClick={() => addToCart(item)}>
+                    <Btn
+                      onClick={() => addToCart(item)}
+                      disabled={limitIsReached.some((i) => i.id === item.id)}
+                    >
                       {" "}
                       <svg width="20px" height="20px">
                         <use href="/sprite.svg#icons-shopping"></use>
@@ -122,6 +142,7 @@ export default function Wishlist() {
                     <StyledLink href="/shop">
                       {t("order.books.back")}
                     </StyledLink>
+                    {toast && <Toast onClick={handleToast}>{toast}</Toast>}
                   </DivBtn>
                 </DivBookWishlist>
               );

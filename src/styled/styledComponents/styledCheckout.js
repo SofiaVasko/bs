@@ -218,7 +218,7 @@ export const Toast = styled.div`
   right: 0;
   margin: 0 auto;
   border-radius: 0.5rem;
-  z-index: 15;
+  z-index: 14;
   cursor: pointer;
 
   &::after {

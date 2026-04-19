@@ -97,4 +97,9 @@ export const Btn = styled.button`
   ${flexContainer}
   gap: 0.2rem;
   padding: 0.3rem;
+
+  &:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
 `;

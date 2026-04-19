@@ -52,6 +52,7 @@
 "order.cart.quantity": "Кількість:",
 "order.cart.sum": "Сума:",
 "order.make": "Оформити замовлення",
+"order.limit": "Ви можете додати до 20 одиниць цього товару.",
 "form.order.total": "Всього: {{price}} грн",
 "form.customer": "Покупець",
 "form.firstname": "Ім'я*",

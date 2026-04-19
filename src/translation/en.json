@@ -52,6 +52,7 @@
 "order.cart.quantity": "Quantity:",
 "order.cart.sum": "Total:",
 "order.make": "Place Order",
+"order.limit": "You can add up to 20 units of this item.",
 "form.order.total": "Order total: {{price}} UAH",
 "form.customer": "Customer",
 "form.firstname": "First name*",
