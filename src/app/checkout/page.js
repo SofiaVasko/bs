@@ -93,7 +93,23 @@ export default function Checkout() {
   const submitOrder = async (e) => {
     e.preventDefault();
 
-    if (!form.isCorrectTel) {
+    if (!form.isCorrectFirstName || !form.isCorrectLastName) {
+      setToast((prevState) => {
+        return {
+          ...prevState,
+          message: t("form.error.name"),
+        };
+      });
+      return;
+    } else if (!form.isCorrectEmail) {
+      setToast((prevState) => {
+        return {
+          ...prevState,
+          message: t("form.error.email"),
+        };
+      });
+      return;
+    } else if (!form.isCorrectTel) {
       setToast((prevState) => {
         return {
           ...prevState,

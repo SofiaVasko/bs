@@ -66,6 +66,8 @@
 "form.comment": "Comment",
 "form.confirm": "I confirm the order details*",
 "form.error.phone": "Please enter a valid phone number",
+"form.error.name": "Please enter a valid name and surname",
+"form.error.email": "Please enter a valid email",
 "form.submit": "Submit",
 "form.loading": "Submitting...",
 "form.submit.success": "Thank you! Your order has been successfully placed. We will contact you shortly.",
